@@ -1,6 +1,6 @@
 {
-  "name": "swarm-manager",
-  "version": "0.0.4",
+  "name": "swarm-pilot",
+  "version": "0.1.0",
   "description": "A docker swarm manager",
   "type": "module",
   "main": ".dist/index.js",
@@ -21,7 +21,7 @@
   ],
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/Integral-Systems/swarm-managerissues"
+    "url": "https://github.com/Integral-Systems/swarm-pilot/issues"
   },
   "homepage": "https://github.com/Integral-Systems/swarm-manager#readme",
   "bin": "./dist/index.js",
