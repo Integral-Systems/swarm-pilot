@@ -53,6 +53,9 @@ steps:
     ref:
       include:
       - refs/tags/*
+trigger:
+  event:
+  - tag
 ############Production Deploy only##########
 ---
 kind: pipeline
@@ -101,25 +104,6 @@ steps:
   when:
     status:
     - failure
-    - success
-- name: Update-Rollbar-Deploy
-  image: plugins/webhook
-  settings:
-    mtu: 1450
-    urls: https://api.rollbar.com/api/1/deploy
-    headers:
-      - "X-Rollbar-Access-Token=db3d630ef04b45089c98a448725af122"
-    template: |
-      {
-        "environment": "production",
-        "revision": "{{build.commit}}",
-        "rollbar_username": "{{build.author}}",
-        "local_username": "{{build.author}}",
-        "comment": "{{build.message}}",
-        "status": "succeeded"
-      }
-  when:
-    status:
     - success
 trigger:
   event:
