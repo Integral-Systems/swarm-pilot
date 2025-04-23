@@ -12,6 +12,8 @@ steps:
   environment:
     NPM_TOKEN:
       from_secret: npm-token
+  settings:
+    mtu: 1450
   commands:
   - npm version ${DRONE_TAG}
   - yarn 
@@ -20,6 +22,8 @@ steps:
   - npm publish --access public
 - name: git commit changes
   image: alpine/git
+  settings:
+    mtu: 1450
   environment:
     KEY:
       from_secret: ssh-key
@@ -32,7 +36,7 @@ steps:
   - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   - echo "$KEY" > $HOME/.ssh/id_rsa
   - chmod 600 $HOME/.ssh/id_rsa
- # --- Configure Git User ---
+  # --- Configure Git User ---
   - git config --global user.email "$GIT_COMMITTER_EMAIL"
   - git config --global user.name "$GIT_COMMITTER_NAME"
   # --- Fetch and Checkout the Target Branch ---
@@ -99,6 +103,7 @@ steps:
   image: appleboy/drone-telegram
   settings:
     mtu: 1450
+    purge: true
     token:
       from_secret: telegram_token
     to: 
