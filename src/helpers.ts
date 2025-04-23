@@ -206,7 +206,7 @@ export function calculate_scaling(data: { usage: Usage, service_spec: DockerServ
                         });
                         yield* Effect.logInfo(`Service ${d.usage.service_name} needs scaling from ${current_scaling} to ${scale} replicas.`);
                     } else {
-                        yield* Effect.logInfo(`No scaling needed for service ${d.usage.service_name}, current scaling is ${current_scaling}. CPU: ${cpu_percent}%|${Math.round(cpuUsage)}${cpuLimit}, Memory: ${memory_percent}%|${Math.round(memoryUsage)}/${memoryLimit}`);
+                        yield* Effect.logInfo(`No scaling needed for service ${d.usage.service_name}, current scaling is ${current_scaling}. CPU: ${cpu_percent}%|${Math.round(cpuUsage)}/${cpuLimit}, Memory: ${memory_percent}%|${Math.round(memoryUsage)}/${memoryLimit}`);
                     }
                 }
             }
