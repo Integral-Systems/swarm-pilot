@@ -3,6 +3,9 @@ kind: pipeline
 type: docker
 name: Build-Pipeline
 
+image_pull_secrets:
+- dockerconfig
+
 steps:
 - name: build-smwarm-pilot-NPM${DRONE_TAG}
   image: registry.integral-systems.ch/library/node-builder:22
@@ -29,17 +32,31 @@ steps:
   - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   - echo "$KEY" > $HOME/.ssh/id_rsa
   - chmod 600 $HOME/.ssh/id_rsa
-  # --- Configure Git User ---
+ # --- Configure Git User ---
   - git config --global user.email "$GIT_COMMITTER_EMAIL"
   - git config --global user.name "$GIT_COMMITTER_NAME"
   # --- Fetch and Checkout the Target Branch ---
-  - git remote update 
-  - git fetch origin master:master 
-  - git checkout master
-  # --- Commit and Push ---
-  - git remote set-url origin git@github.com:Integral-Systems/swarm-pilot.git # <--- ADD THIS LINE
-  - git commit -a -m "update version ${DRONE_TAG}"
-  - git push origin master
+  - git remote update
+  - git fetch origin master:master # Adjust branch name if needed (e.g., main:main)
+  - git checkout master # Adjust branch name if needed
+  # --- Check for changes and Commit IF changes exist ---
+  - echo "Checking for changes..."
+  # The '-a' in commit handles staging, so check status directly.
+  # git status --porcelain outputs tracked file changes (staged or unstaged).
+  - | # Use multiline YAML string for readability
+    if [ -n "$(git status --porcelain)" ]; then
+      echo "Changes detected. Committing update version ${DRONE_TAG}..."
+      git commit -a -m "update version ${DRONE_TAG}"
+    else
+      echo "No changes detected in tracked files. Nothing to commit."
+    fi
+  # --- Set Remote URL and Push ---
+  - git remote set-url origin git@github.com:Integral-Systems/swarm-pilot.git # Adjust repo URL if needed
+  # --- Push only if a commit was made (optional but good practice) ---
+  # We can push regardless, as pushing an unchanged branch is harmless,
+  # or check if HEAD changed. Pushing regardless is simpler.
+  - echo "Pushing changes..."
+  - git push origin master # Adjust branch name if needed
   when:
     status:
     - success
