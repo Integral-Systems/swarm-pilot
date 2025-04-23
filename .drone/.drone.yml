@@ -4,24 +4,30 @@ type: docker
 name: Build-Pipeline
 
 steps:
-- name: build-smwarm-pilot-NPM-${DRONE_TAG}
+- name: build-smwarm-pilot-NPM${DRONE_TAG}
   image: registry.integral-systems.ch/library/node-builder:22
   environment:
     NPM_TOKEN:
       from_secret: npm-token
   commands:
-  - npm install
   - npm version ${DRONE_TAG}
+  - yarn 
+  - yarn build
   - npm set //registry.npmjs.org/:_authToken=$${NPM_TOKEN}
-  - npm build
   - npm publish --access public
-- name: push commit
-  image: appleboy/drone-git-push
-  settings:
-    remote_name: origin
-    commit: true
-    commit_message: updated version to - ${DRONE_TAG}
-    branch: master
+- name: git commit changes
+  image: alpine/git
+  environment:
+    KEY:
+      from_secret: ssh-key
+  commands:
+  - mkdir -p /root/.ssh/
+  - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  - echo "$KEY" > $HOME/.ssh/id_rsa
+  - chmod 600 $HOME/.ssh/id_rsa
+  - git checkout master
+  - git commit -a -m "update version ${DRONE_TAG}"
+  - git push
   when:
     status:
     - success
