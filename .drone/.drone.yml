@@ -78,6 +78,8 @@ steps:
     repo: registry.integral-systems.ch/integral-systems/swarm-pilot
     registry: registry.integral-systems.ch
     tags: ${DRONE_TAG}, latest
+    build_args:
+      - SWARM_PILOT_VERSION=${DRONE_TAG}
   when:
     ref:
       include:
@@ -95,6 +97,8 @@ steps:
     tags:
       - ${DRONE_TAG}
       - latest
+    build_args:
+      - SWARM_PILOT_VERSION=${DRONE_TAG}
   when:
     ref:
       include:
