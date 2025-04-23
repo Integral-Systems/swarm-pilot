@@ -98,12 +98,13 @@ steps:
     ref:
       include:
       - refs/tags/*
-trigger:
-  event:
-  - tag
   depends_on:
   - Push-docker-${DRONE_TAG}
   - git commit changes
+trigger:
+  event:
+  - tag
+
 ############Production Deploy only##########
 ---
 kind: pipeline
