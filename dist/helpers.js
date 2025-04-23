@@ -140,7 +140,7 @@ export function calculate_scaling(data) {
                         yield* Effect.logDebug(`CPU Limit is set for service ${d.usage.service_name}`);
                         if (cpu_percent < label_config.autoscaler_minimum_cpu) {
                             if (current_scaling - 1 < label_config.autoscaler_min_replicas) {
-                                yield* Effect.logInfo(`Service ${d.usage.service_name} is already at min scaling`);
+                                yield* Effect.logDebug(`Service ${d.usage.service_name} is already at min scaling`);
                             }
                             else {
                                 scale_cpu = current_scaling - 1;
@@ -150,7 +150,7 @@ export function calculate_scaling(data) {
                             if (label_config.autoscaler_max_replicas === 0)
                                 scale_cpu = current_scaling + 1;
                             if (current_scaling + 1 > label_config.autoscaler_max_replicas) {
-                                yield* Effect.logInfo(`Service ${d.usage.service_name} is already at max scaling`);
+                                yield* Effect.logDebug(`Service ${d.usage.service_name} is already at max scaling`);
                             }
                             else {
                                 scale_cpu = current_scaling + 1;
