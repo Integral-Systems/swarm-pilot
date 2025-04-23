@@ -71,7 +71,7 @@ steps:
   settings:
     mtu: 1450
   commands:
-  - curl --max-time 240 --show-error --fail -X POST ${DEPLOY_URL}?SERVICE_TAG=${DRONE_TAG}
+  - curl --max-time 240 --show-error --fail -X POST $${DEPLOY_URL}?SERVICE_TAG=${DRONE_TAG}
 #############Notification###################
 - name: Notify-via-Telegram
   image: appleboy/drone-telegram
