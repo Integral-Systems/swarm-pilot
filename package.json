@@ -1,0 +1,49 @@
+{
+  "name": "swarm-manager",
+  "version": "0.0.4",
+  "description": "A docker swarm manager",
+  "type": "module",
+  "main": ".dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Integral-Systems/swarm-manager.git"
+  },
+  "author": "Gradlon von Känel",
+  "keywords": [
+    "Docker",
+    "Swarm",
+    "Manager",
+    "autoscaling"
+  ],
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Integral-Systems/swarm-managerissues"
+  },
+  "homepage": "https://github.com/Integral-Systems/swarm-manager#readme",
+  "bin": "./dist/index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "@types/node-telegram-bot-api": "^0.64.8",
+    "@types/yargs": "^17.0.33",
+    "esbuild": "^0.25.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@effect/platform": "^0.80.10",
+    "@effect/platform-node": "^0.76.19",
+    "axios": "^1.8.4",
+    "dotenv": "^16.4.5",
+    "effect": "^3.14.10",
+    "node-telegram-bot-api": "^0.66.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "yargs": "^18.0.0-candidate.4"
+  }
+}

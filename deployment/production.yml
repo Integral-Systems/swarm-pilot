@@ -1,0 +1,44 @@
+services:
+  autoscaler:
+    image: registry.integral-systems.ch/integral-systems/swarm-manager:${SERVICE_TAG:-latest}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DEBUG=false
+      - PROM_HOST=prometheus.int.integral-systems.ch
+      - PROM_USER=${PROM_USER}
+      - PROM_PASS=${PROM_PASS}
+      - PROM_PORT=443
+      - PROM_SCHEMA=https
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - BATCH_SIZE=5
+      - AUTOSCALER_INTERVAL=${AUTOSCALER_INTERVAL:-5}
+      - ENABLE_AUTOSCALER_LABEL=swarm.autoscaler
+      - AUTOSCALER_MINIMUM_CPU_LABEL=swarm.autoscaler.minimum_cpu
+      - AUTOSCALER_CPU_MINIMUM_DEFAULT=${AUTOSCALER_CPU_MINIMUM:-25}
+      - AUTOSCALER_MAXIMUM_CPU_LABEL=swarm.autoscaler.maximum_cpu
+      - AUTOSCALER_MAXIMUM_CPU_DEFAULT=${AUTOSCALER_CPU_MAXIMUM:-85}
+      - AUTOSCALER_MINIMUM_MEM_LABEL=swarm.autoscaler.minimum_mem
+      - AUTOSCALER_MEM_MINIMUM_DEFAULT=${AUTOSCALER_MEM_MINIMUM:-25}
+      - AUTOSCALER_MAXIMUM_MEM_LABEL=swarm.autoscaler.maximum_mem
+      - AUTOSCALER_MAXIMUM_MEM_DEFAULT=${AUTOSCALER_MEM_MAXIMUM:-85}
+      - AUTOSCALER_MIN_REPLICAS_LABEL=swarm.autoscaler.min_replicas
+      - AUTOSCALER_MIN_REPLICAS_DEFAULT=1
+      - AUTOSCALER_MAX_REPLICAS_LABEL=swarm.autoscaler.max_replicas
+      - AUTOSCALER_MAX_REPLICAS_DEFAULT=10
+    networks:
+      - default
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 128M
+        reservations:
+          cpus: '0.10'
+          memory: 64M

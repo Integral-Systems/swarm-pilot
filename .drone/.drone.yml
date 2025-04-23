@@ -1,0 +1,110 @@
+---
+kind: pipeline
+type: docker
+name: Build-Pipeline
+
+steps:
+- name: Build-Container-swarm-manager-${DRONE_COMMIT_BRANCH}
+  image: plugins/docker
+  settings:
+    mtu: 1450
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: registry.integral-systems.ch/integral-systems/swarm-manager
+    registry: registry.integral-systems.ch
+    tags: ${DRONE_TAG}, latest
+  when:
+    ref:
+      include:
+      - refs/tags/*
+- name: Notify-via-Telegram
+  image: appleboy/drone-telegram
+  settings:
+    mtu: 1450
+    token:
+      from_secret: telegram_token
+    to: 
+      from_secret: telegram_default_groupe_id
+    message_file: .drone/telegram_prod_build.tpl
+  when:
+    status:
+    - failure
+    - success
+    ref:
+      include:
+      - refs/tags/*
+############Production Deploy only##########
+---
+kind: pipeline
+type: docker
+name: Deploy-Production
+
+steps:
+- name: Deploy-Container-${DRONE_TAG}
+  image: curlimages/curl
+  environment:
+    DEPLOY_URL:
+      from_secret: deploy_url
+  settings:
+    mtu: 1450
+  commands:
+  - curl --max-time 240 --show-error --fail -X POST ${DEPLOY_URL}?SERVICE_TAG=${DRONE_TAG}
+#############Notification###################
+- name: Notify-via-Telegram
+  image: appleboy/drone-telegram
+  settings:
+    mtu: 1450
+    token:
+      from_secret: telegram_token
+    to: 
+      from_secret: telegram_default_groupe_id
+    message_file: .drone/telegram_prod_deploy.tpl
+  when:
+    status:
+    - failure
+    - success
+- name: Notify-via-Mail
+  image: drillster/drone-email
+  settings:
+    mtu: 1450
+    host: smtp.gmail.com
+    username:
+      from_secret: gmail_user
+    password:
+      from_secret: gmail_pass
+    from: admin@integralschweiz.org
+    #recipients: [ gradlon@me.com ]
+    #recipients_only: true
+    body: file:///drone/src/.drone/mail_prod_deploy.hbs
+    when:
+      status: [ changed, failure, success ]
+  when:
+    status:
+    - failure
+    - success
+- name: Update-Rollbar-Deploy
+  image: plugins/webhook
+  settings:
+    mtu: 1450
+    urls: https://api.rollbar.com/api/1/deploy
+    headers:
+      - "X-Rollbar-Access-Token=db3d630ef04b45089c98a448725af122"
+    template: |
+      {
+        "environment": "production",
+        "revision": "{{build.commit}}",
+        "rollbar_username": "{{build.author}}",
+        "local_username": "{{build.author}}",
+        "comment": "{{build.message}}",
+        "status": "succeeded"
+      }
+  when:
+    status:
+    - success
+trigger:
+  event:
+  - promote
+  target:
+  - production

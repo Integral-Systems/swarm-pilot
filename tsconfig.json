@@ -1,0 +1,33 @@
+{
+  "typeAcquisition": {
+      "enable": true
+  },
+  "compilerOptions": {
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "target": "ES2020",
+      "module": "ESNext",
+      "moduleResolution": "Node",
+      "preserveConstEnums": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "declaration": true,
+      "strict": true,
+      "noEmitOnError": false,
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "noUncheckedIndexedAccess": false,
+      "noImplicitThis": false,
+      "strictBindCallApply": false,
+      "strictFunctionTypes": true,
+      "strictPropertyInitialization": true,
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+  },
+  "exclude": ["../node_modules"],
+  "include":[
+      "src/**/*.ts"
+  ],
+}

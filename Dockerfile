@@ -1,0 +1,10 @@
+FROM rockylinux/rockylinux:9.5
+# ENV NODE_ENV=production
+RUN dnf -y install dnf-plugins-core
+RUN dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo -y
+#RUN sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN dnf install -y docker-ce docker-ce-cli
+RUN dnf module install nodejs:22/common -y
+COPY ./ /app/
+RUN cd /app && npm install
+ENTRYPOINT ["node", "/app/dist/index.js"]
