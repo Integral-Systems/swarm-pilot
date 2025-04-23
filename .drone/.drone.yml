@@ -3,6 +3,9 @@ kind: pipeline
 type: docker
 name: Build-Pipeline
 
+image_pull_secrets:
+- dockerconfig
+
 steps:
 - name: build-smwarm-pilot-NPM${DRONE_TAG}
   image: registry.integral-systems.ch/library/node-builder:22
