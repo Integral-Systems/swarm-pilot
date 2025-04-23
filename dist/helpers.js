@@ -161,7 +161,7 @@ export function calculate_scaling(data) {
                         yield* Effect.logDebug(`Memory Limit is set for service ${d.usage.service_name}`);
                         if (memory_percent < label_config.autoscaler_minimum_mem) {
                             if (current_scaling - 1 < label_config.autoscaler_min_replicas) {
-                                yield* Effect.logInfo(`Service ${d.usage.service_name} is already at min scaling`);
+                                yield* Effect.logDebug(`Service ${d.usage.service_name} is already at min scaling`);
                             }
                             else {
                                 scale_mem = current_scaling - 1;
@@ -171,7 +171,7 @@ export function calculate_scaling(data) {
                             if (label_config.autoscaler_max_replicas === 0)
                                 scale_mem = current_scaling + 1;
                             if (current_scaling <= label_config.autoscaler_max_replicas) {
-                                yield* Effect.logInfo(`Service ${d.usage.service_name} is already at max scaling`);
+                                yield* Effect.logDebug(`Service ${d.usage.service_name} is already at max scaling`);
                             }
                             else {
                                 scale_mem = current_scaling + 1;
@@ -188,7 +188,7 @@ export function calculate_scaling(data) {
                         yield* Effect.logInfo(`Service ${d.usage.service_name} needs scaling from ${current_scaling} to ${scale} replicas.`);
                     }
                     else {
-                        yield* Effect.logDebug(`No scaling needed for service ${d.usage.service_name}`);
+                        yield* Effect.logInfo(`No scaling needed for service ${d.usage.service_name}, current scaling is ${current_scaling}. CPU: ${cpu_percent}%|${cpuLimit}%, Memory: ${memory_percent}%|${memoryLimit}%`);
                     }
                 }
             }
