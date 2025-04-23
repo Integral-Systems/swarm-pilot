@@ -12,7 +12,7 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: registry.integral-systems.ch/integral-systems/swarm-manager
+    repo: registry.integral-systems.ch/integral-systems/swarm-pilot
     registry: registry.integral-systems.ch
     tags: ${DRONE_TAG}, latest
   when:

@@ -20,11 +20,9 @@ Swarm Pilot is a Docker Swarm cluster management tool designed to simplify and a
 Below is an example deployment configuration for Swarm Pilot using a `docker-compose.yml` file:
 
 ```yaml
-version: '3.8'
-
 services:
-    swarm-manager:
-        image: registry.integral-systems.ch/integral-systems/swarm-pilot:${SERVICE_TAG:-latest}
+    swarm-pilot:
+        image: gradlon/swarm-pilot:latest
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
         environment:
