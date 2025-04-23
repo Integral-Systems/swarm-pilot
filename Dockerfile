@@ -5,6 +5,5 @@ RUN dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-
 #RUN sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 RUN dnf install -y docker-ce docker-ce-cli
 RUN dnf module install nodejs:22/common -y
-COPY ./ /app/
-RUN cd /app && npm install --omit=dev
-ENTRYPOINT ["node", "/app/dist/index.js"]
+RUN npm i -g swarm-pilot
+ENTRYPOINT ["swarm-pilot"]
