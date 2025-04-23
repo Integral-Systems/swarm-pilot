@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Chunk, Duration, Effect, pipe, Schedule, Array } from "effect";
 import { build_runtime } from "./runtime.js";
 import { get_metrics, get_nodes, get_service_tasks, get_services, inspect_node, inspect_service } from "./commands.js";

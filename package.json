@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/Integral-Systems/swarm-pilot/issues"
   },
-  "homepage": "https://github.com/Integral-Systems/swarm-manager#readme",
+  "homepage": "https://github.com/Integral-Systems/swarm-pilot#readme",
   "bin": "./dist/index.js",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

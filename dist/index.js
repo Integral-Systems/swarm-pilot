@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Effect, pipe, Schedule } from "effect";
 import { build_runtime } from "./runtime.js";
 import { get_args } from "./args.js";
