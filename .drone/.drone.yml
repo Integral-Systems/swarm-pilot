@@ -46,6 +46,8 @@ steps:
     ref:
       include:
       - refs/tags/*
+  depends_on:
+  - build-smwarm-pilot-NPM${DRONE_TAG}
 - name: Build-Container-swarm-pilot-${DRONE_TAG}
   image: plugins/docker
   settings:
@@ -78,6 +80,8 @@ steps:
     ref:
       include:
       - refs/tags/*
+  depends_on:
+  - Build-Container-swarm-pilot-${DRONE_TAG}
 - name: Notify-via-Telegram
   image: appleboy/drone-telegram
   settings:
@@ -97,6 +101,9 @@ steps:
 trigger:
   event:
   - tag
+  depends_on:
+  - Push-docker-${DRONE_TAG}
+  - git commit changes
 ############Production Deploy only##########
 ---
 kind: pipeline
