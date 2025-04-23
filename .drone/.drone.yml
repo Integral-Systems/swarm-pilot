@@ -63,6 +63,11 @@ type: docker
 name: Deploy-Production
 
 steps:
+- name: build-smwarm-pilot-NPM-${DRONE_TAG}
+  image: registry.integral-systems.ch/library/node-builder:22
+  commands:
+  - npm install
+  - npm build
 - name: Deploy-Container-${DRONE_TAG}
   image: curlimages/curl
   environment:
