@@ -1,6 +1,6 @@
 {
   "name": "swarm-pilot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A docker swarm manager",
   "type": "module",
   "main": ".dist/index.js",
@@ -37,13 +37,13 @@
   },
   "dependencies": {
     "@effect/platform": "^0.80.10",
-    "@effect/platform-node": "^0.76.19",
+    "@effect/platform-node": "0.77.1",
     "axios": "^1.8.4",
     "dotenv": "^16.4.5",
     "effect": "^3.14.10",
     "node-telegram-bot-api": "^0.66.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
-    "yargs": "^18.0.0-candidate.4"
+    "yargs": "17.7.2"
   }
 }

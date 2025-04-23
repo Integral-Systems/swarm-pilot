@@ -3,8 +3,8 @@ import { Config } from "./config.js";
 import { AppError, ScaleError } from "./error.js";
 import { Scaling } from "./schemas/index.js";
 export declare const get_services: () => Effect.Effect<readonly {
-    id: string;
     name: string;
+    id: string;
     mode: "replicated" | "global";
     replicas_running: number;
     replicas_target: number;
@@ -12,8 +12,8 @@ export declare const get_services: () => Effect.Effect<readonly {
     ports?: string | undefined;
 }[], AppError, never>;
 export declare const get_service_tasks: (serviceIdOrName: string) => Effect.Effect<{
-    readonly id: string;
     readonly name: string;
+    readonly id: string;
     readonly image: string;
     readonly ports?: string | undefined;
     readonly node: string;
@@ -23,30 +23,35 @@ export declare const get_service_tasks: (serviceIdOrName: string) => Effect.Effe
     readonly error?: string | undefined;
 }[], AppError, never>;
 export declare const get_metrics: (time: number) => Effect.Effect<{
+    readonly instance: string;
     readonly service_name: string;
     readonly cpu_usage: number;
     readonly memory_usage: number;
     readonly task_id: string;
-    readonly instance: string;
 }[], AppError | import("effect/ParseResult").ParseError, Config>;
 export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect<{
-    readonly ID: string;
-    readonly Version: {
-        readonly Index: number;
-    };
-    readonly CreatedAt: string;
-    readonly UpdatedAt: string;
     readonly Spec?: {
-        readonly Name?: string | undefined;
         readonly Labels: {
             readonly [x: string]: string;
         };
+        readonly Networks?: readonly {
+            readonly Target: string;
+            readonly Aliases?: readonly string[] | undefined;
+        }[] | undefined;
+        readonly Name?: string | undefined;
+        readonly Mode: {
+            readonly Global: {};
+        } | {
+            readonly Replicated: {
+                readonly Replicas: number;
+            };
+        };
         readonly TaskTemplate?: {
             readonly ContainerSpec?: {
+                readonly Image: string;
                 readonly Labels: {
                     readonly [x: string]: string;
                 };
-                readonly Image: string;
                 readonly Args?: readonly string[] | undefined;
                 readonly Privileges?: {
                     readonly CredentialSpec?: string | null | undefined;
@@ -89,17 +94,6 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
             readonly ForceUpdate?: number | undefined;
             readonly Runtime?: string | undefined;
         } | undefined;
-        readonly Networks?: readonly {
-            readonly Target: string;
-            readonly Aliases?: readonly string[] | undefined;
-        }[] | undefined;
-        readonly Mode: {
-            readonly Global: {};
-        } | {
-            readonly Replicated: {
-                readonly Replicas: number;
-            };
-        };
         readonly UpdateConfig?: {
             readonly Parallelism?: number | undefined;
             readonly FailureAction?: string | undefined;
@@ -125,17 +119,34 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
             }[] | undefined;
         } | undefined;
     } | undefined;
+    readonly ID: string;
+    readonly Version: {
+        readonly Index: number;
+    };
+    readonly CreatedAt: string;
+    readonly UpdatedAt: string;
     readonly PreviousSpec?: {
-        readonly Name?: string | undefined;
         readonly Labels: {
             readonly [x: string]: string;
         };
+        readonly Networks?: readonly {
+            readonly Target: string;
+            readonly Aliases?: readonly string[] | undefined;
+        }[] | undefined;
+        readonly Name?: string | undefined;
+        readonly Mode: {
+            readonly Global: {};
+        } | {
+            readonly Replicated: {
+                readonly Replicas: number;
+            };
+        };
         readonly TaskTemplate?: {
             readonly ContainerSpec?: {
+                readonly Image: string;
                 readonly Labels: {
                     readonly [x: string]: string;
                 };
-                readonly Image: string;
                 readonly Args?: readonly string[] | undefined;
                 readonly Privileges?: {
                     readonly CredentialSpec?: string | null | undefined;
@@ -178,17 +189,6 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
             readonly ForceUpdate?: number | undefined;
             readonly Runtime?: string | undefined;
         } | undefined;
-        readonly Networks?: readonly {
-            readonly Target: string;
-            readonly Aliases?: readonly string[] | undefined;
-        }[] | undefined;
-        readonly Mode: {
-            readonly Global: {};
-        } | {
-            readonly Replicated: {
-                readonly Replicas: number;
-            };
-        };
         readonly UpdateConfig?: {
             readonly Parallelism?: number | undefined;
             readonly FailureAction?: string | undefined;
@@ -215,6 +215,13 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
         } | undefined;
     } | undefined;
     readonly Endpoint?: {
+        readonly Ports?: readonly {
+            readonly Name?: string | undefined;
+            readonly Protocol?: string | undefined;
+            readonly TargetPort: number;
+            readonly PublishedPort?: number | undefined;
+            readonly PublishMode?: string | undefined;
+        }[] | undefined;
         readonly Spec?: {
             readonly Mode?: string | undefined;
             readonly Ports?: readonly {
@@ -225,13 +232,6 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
                 readonly PublishMode?: string | undefined;
             }[] | undefined;
         } | undefined;
-        readonly Ports?: readonly {
-            readonly Name?: string | undefined;
-            readonly Protocol?: string | undefined;
-            readonly TargetPort: number;
-            readonly PublishedPort?: number | undefined;
-            readonly PublishMode?: string | undefined;
-        }[] | undefined;
         readonly VirtualIPs?: readonly {
             readonly NetworkID: string;
             readonly Addr: string;
@@ -246,20 +246,14 @@ export declare const inspect_service: (serviceNameOrID: string) => Effect.Effect
 }, AppError | import("effect/ParseResult").ParseError, never>;
 export declare const get_nodes: () => Effect.Effect<{
     readonly id: string;
-    readonly status: "ready" | "down" | "unknown" | "disconnected";
     readonly is_self: boolean;
     readonly hostname: string;
-    readonly availability: "pause" | "active" | "drain";
+    readonly status: "ready" | "down" | "unknown" | "disconnected";
+    readonly availability: "active" | "pause" | "drain";
     readonly manager_status: "leader" | "reachable" | "unavailable" | "worker";
     readonly engine_version: string;
 }[], AppError | import("effect/ParseResult").ParseError, never>;
 export declare const inspect_node: (nodeNameOrID: string) => Effect.Effect<{
-    readonly ID: string;
-    readonly Version: {
-        readonly Index: number;
-    };
-    readonly CreatedAt: string;
-    readonly UpdatedAt: string;
     readonly Spec?: {
         readonly Labels: {
             readonly [x: string]: string;
@@ -267,6 +261,12 @@ export declare const inspect_node: (nodeNameOrID: string) => Effect.Effect<{
         readonly Role?: string | undefined;
         readonly Availability?: string | undefined;
     } | undefined;
+    readonly ID: string;
+    readonly Version: {
+        readonly Index: number;
+    };
+    readonly CreatedAt: string;
+    readonly UpdatedAt: string;
     readonly Description?: {
         readonly Resources?: {
             readonly NanoCPUs?: number | undefined;

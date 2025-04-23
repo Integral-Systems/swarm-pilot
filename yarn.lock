@@ -54,38 +54,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@effect/platform-node-shared@npm:^0.30.21":
-  version: 0.30.21
-  resolution: "@effect/platform-node-shared@npm:0.30.21"
+"@effect/platform-node-shared@npm:^0.31.1":
+  version: 0.31.1
+  resolution: "@effect/platform-node-shared@npm:0.31.1"
   dependencies:
     "@parcel/watcher": ^2.4.1
     multipasta: ^0.2.5
     ws: ^8.18.0
   peerDependencies:
-    "@effect/cluster": ^0.29.21
-    "@effect/platform": ^0.80.11
-    "@effect/rpc": ^0.55.16
-    "@effect/sql": ^0.33.11
-    effect: ^3.14.11
-  checksum: eca673c470630d329dd8f98ffabe8a597f4d391d6ac121f819313e3b684ae7b0ea2ffcf56a7d1aa1b7ac2d360320422617bc856dfb7c7f9d4c87523d79fd8eab
+    "@effect/cluster": ^0.30.1
+    "@effect/platform": ^0.80.13
+    "@effect/rpc": ^0.56.1
+    "@effect/sql": ^0.33.13
+    effect: ^3.14.13
+  checksum: cb6e51f1c1c6159740ec31eca415ee4a03a0aebd5e7bf3b63d2fe4e8b8d2c03d6aa350f8681a20965ca6b155f271d876be7264e12e9f1d4315df7ca6338edbca
   languageName: node
   linkType: hard
 
-"@effect/platform-node@npm:^0.76.19":
-  version: 0.76.21
-  resolution: "@effect/platform-node@npm:0.76.21"
+"@effect/platform-node@npm:0.77.1":
+  version: 0.77.1
+  resolution: "@effect/platform-node@npm:0.77.1"
   dependencies:
-    "@effect/platform-node-shared": ^0.30.21
+    "@effect/platform-node-shared": ^0.31.1
     mime: ^3.0.0
     undici: ^7.1.0
     ws: ^8.18.0
   peerDependencies:
-    "@effect/cluster": ^0.29.21
-    "@effect/platform": ^0.80.11
-    "@effect/rpc": ^0.55.16
-    "@effect/sql": ^0.33.11
-    effect: ^3.14.11
-  checksum: ef4a844b294add6a3520a1e18eedd33f34020093332ef0b4f0d913d55d778df1cbe59396eb5abf7b1da13867989fa1a8662c55a9e8b6025f1304ee6806bf9a13
+    "@effect/cluster": ^0.30.1
+    "@effect/platform": ^0.80.13
+    "@effect/rpc": ^0.56.1
+    "@effect/sql": ^0.33.13
+    effect: ^3.14.13
+  checksum: 6ba9f8b996a48554cf33ab6e7ec0145e38c352dffeab8ca8b8f0ac47a57b6c91e03b63b9a5f648c8e7b410edb78655944a47d82c6e64a8229385ff627177c202
   languageName: node
   linkType: hard
 
@@ -690,7 +690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^6.1.0, ansi-styles@npm:^6.2.1":
+"ansi-styles@npm:^6.1.0":
   version: 6.2.1
   resolution: "ansi-styles@npm:6.2.1"
   checksum: ef940f2f0ced1a6347398da88a91da7930c33ecac3c77b72c5905f8b8fe402c52e6fde304ff5347f616e27a742da3f1dc76de98f6866c69251ad0b07a66776d9
@@ -924,14 +924,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cliui@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "cliui@npm:9.0.1"
+"cliui@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "cliui@npm:8.0.1"
   dependencies:
-    string-width: ^7.2.0
-    strip-ansi: ^7.1.0
-    wrap-ansi: ^9.0.0
-  checksum: 143879ae462bf76822f341bf40979f0225fdba8dde6dfe429018b13396fd0532752cc2a809ac48cecc0ea189406184ad7568c0af44eea73d2ac3b432c4c6431f
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.1
+    wrap-ansi: ^7.0.0
+  checksum: 79648b3b0045f2e285b76fb2e24e207c6db44323581e421c3acbd0e86454cba1b37aea976ab50195a49e7384b871e6dfb2247ad7dec53c02454ac6497394cb56
   languageName: node
   linkType: hard
 
@@ -1149,13 +1149,6 @@ __metadata:
     "@standard-schema/spec": ^1.0.0
     fast-check: ^3.23.1
   checksum: 486ff5d477612a95d78963e826721f4e94536154ae938f642f28ac6b2d64a678bdda8eea0d77eb1db6abc6a72138c7efb48b1df46c25afed17542b85a2d328af
-  languageName: node
-  linkType: hard
-
-"emoji-regex@npm:^10.3.0":
-  version: 10.4.0
-  resolution: "emoji-regex@npm:10.4.0"
-  checksum: a6d9a0e454829a52e664e049847776ee1fff5646617b06cd87de7c03ce1dfcce4102a3b154d5e9c8e90f8125bc120fc1fe114d523dddf60a8a161f26c72658d2
   languageName: node
   linkType: hard
 
@@ -1612,13 +1605,6 @@ __metadata:
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
   checksum: b9769a836d2a98c3ee734a88ba712e62703f1df31b94b784762c433c27a386dd6029ff55c2a920c392e33657d80191edbf18c61487e198844844516f843496b9
-  languageName: node
-  linkType: hard
-
-"get-east-asian-width@npm:^1.0.0":
-  version: 1.3.0
-  resolution: "get-east-asian-width@npm:1.3.0"
-  checksum: 757a34c7a46ff385e2775f96f9d3e553f6b6666a8898fb89040d36a1010fba692332772945606a7d4b0f0c6afb84cd394e75d5477c56e1f00f1eb79603b0aecc
   languageName: node
   linkType: hard
 
@@ -2731,6 +2717,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"require-directory@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "require-directory@npm:2.1.1"
+  checksum: fb47e70bf0001fdeabdc0429d431863e9475e7e43ea5f94ad86503d918423c1543361cc5166d713eaa7029dd7a3d34775af04764bebff99ef413111a5af18c80
+  languageName: node
+  linkType: hard
+
 "requires-port@npm:^1.0.0":
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
@@ -2996,7 +2989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width-cjs@npm:string-width@^4.2.0, string-width@npm:^4.1.0":
+"string-width-cjs@npm:string-width@^4.2.0, string-width@npm:^4.1.0, string-width@npm:^4.2.0, string-width@npm:^4.2.3":
   version: 4.2.3
   resolution: "string-width@npm:4.2.3"
   dependencies:
@@ -3015,17 +3008,6 @@ __metadata:
     emoji-regex: ^9.2.2
     strip-ansi: ^7.0.1
   checksum: 7369deaa29f21dda9a438686154b62c2c5f661f8dda60449088f9f980196f7908fc39fdd1803e3e01541970287cf5deae336798337e9319a7055af89dafa7193
-  languageName: node
-  linkType: hard
-
-"string-width@npm:^7.0.0, string-width@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "string-width@npm:7.2.0"
-  dependencies:
-    emoji-regex: ^10.3.0
-    get-east-asian-width: ^1.0.0
-    strip-ansi: ^7.1.0
-  checksum: 42f9e82f61314904a81393f6ef75b832c39f39761797250de68c041d8ba4df2ef80db49ab6cd3a292923a6f0f409b8c9980d120f7d32c820b4a8a84a2598a295
   languageName: node
   linkType: hard
 
@@ -3085,7 +3067,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
+"strip-ansi@npm:^7.0.1":
   version: 7.1.0
   resolution: "strip-ansi@npm:7.1.0"
   dependencies:
@@ -3094,12 +3076,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swarm-manager@workspace:.":
+"swarm-pilot@workspace:.":
   version: 0.0.0-use.local
-  resolution: "swarm-manager@workspace:."
+  resolution: "swarm-pilot@workspace:."
   dependencies:
     "@effect/platform": ^0.80.10
-    "@effect/platform-node": ^0.76.19
+    "@effect/platform-node": 0.77.1
     "@types/node": ^22.14.1
     "@types/node-telegram-bot-api": ^0.64.8
     "@types/yargs": ^17.0.33
@@ -3111,7 +3093,9 @@ __metadata:
     ts-node: ^10.9.2
     tsx: ^4.19.3
     typescript: ^5.8.3
-    yargs: ^18.0.0-candidate.4
+    yargs: 17.7.2
+  bin:
+    swarm-pilot: ./dist/index.js
   languageName: unknown
   linkType: soft
 
@@ -3508,7 +3492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0, wrap-ansi@npm:^7.0.0":
   version: 7.0.0
   resolution: "wrap-ansi@npm:7.0.0"
   dependencies:
@@ -3527,17 +3511,6 @@ __metadata:
     string-width: ^5.0.1
     strip-ansi: ^7.0.1
   checksum: 371733296dc2d616900ce15a0049dca0ef67597d6394c57347ba334393599e800bab03c41d4d45221b6bc967b8c453ec3ae4749eff3894202d16800fdfe0e238
-  languageName: node
-  linkType: hard
-
-"wrap-ansi@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "wrap-ansi@npm:9.0.0"
-  dependencies:
-    ansi-styles: ^6.2.1
-    string-width: ^7.0.0
-    strip-ansi: ^7.1.0
-  checksum: b2d43b76b3d8dcbdd64768165e548aad3e54e1cae4ecd31bac9966faaa7cf0b0345677ad6879db10ba58eb446ba8fa44fb82b4951872fd397f096712467a809f
   languageName: node
   linkType: hard
 
@@ -3591,17 +3564,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^18.0.0-candidate.4":
-  version: 18.0.0-candidate.4
-  resolution: "yargs@npm:18.0.0-candidate.4"
+"yargs@npm:17.7.2":
+  version: 17.7.2
+  resolution: "yargs@npm:17.7.2"
   dependencies:
-    cliui: ^9.0.1
+    cliui: ^8.0.1
     escalade: ^3.1.1
     get-caller-file: ^2.0.5
-    string-width: ^7.2.0
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
-  checksum: c87510a0a7d660759c211bfac4adfe0a8e8278d4fa584e76a443261e7da1322140484d3f83698d4ae2137dc2bc897a07c47c083c140d45bc79e5a384f0049414
+  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
   languageName: node
   linkType: hard
 
