@@ -4,7 +4,7 @@ type: docker
 name: Build-Pipeline
 
 steps:
-- name: Build-Container-swarm-manager-${DRONE_COMMIT_BRANCH}
+- name: Build-Container-swarm-manager-${DRONE_TAG}
   image: plugins/docker
   settings:
     mtu: 1450
@@ -15,6 +15,25 @@ steps:
     repo: registry.integral-systems.ch/integral-systems/swarm-manager
     registry: registry.integral-systems.ch
     tags: ${DRONE_TAG}, latest
+  when:
+    ref:
+      include:
+      - refs/tags/*
+- name: Push-docker-${DRONE_TAG}
+  image: plugins/docker
+  settings:
+    mtu: 1450
+    username:
+      from_secret: docker-hub-username
+    password:
+      from_secret: docker-hub-password
+    repo: hub.docker.com/gradlon
+    registry: hub.docker.com
+    purge: true
+    tags:
+      - ${DRONE_TAG}
+      - latest
+
   when:
     ref:
       include:
