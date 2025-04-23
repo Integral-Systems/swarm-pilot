@@ -4,24 +4,42 @@ type: docker
 name: Build-Pipeline
 
 steps:
-- name: build-smwarm-pilot-NPM-${DRONE_TAG}
+- name: build-smwarm-pilot-NPM${DRONE_TAG}
   image: registry.integral-systems.ch/library/node-builder:22
   environment:
     NPM_TOKEN:
       from_secret: npm-token
   commands:
-  - npm install
   - npm version ${DRONE_TAG}
+  - yarn 
+  - yarn build
   - npm set //registry.npmjs.org/:_authToken=$${NPM_TOKEN}
-  - npm build
   - npm publish --access public
-- name: push commit
-  image: appleboy/drone-git-push
-  settings:
-    remote_name: origin
-    commit: true
-    commit_message: updated version to - ${DRONE_TAG}
-    branch: master
+- name: git commit changes
+  image: alpine/git
+  environment:
+    KEY:
+      from_secret: ssh-key
+    GIT_AUTHOR_NAME: Drone CI
+    GIT_AUTHOR_EMAIL: ci@integral-systems.ch
+    GIT_COMMITTER_NAME: Drone CI
+    GIT_COMMITTER_EMAIL: ci@integral-systems.ch
+  commands:
+  - mkdir -p /root/.ssh/
+  - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  - echo "$KEY" > $HOME/.ssh/id_rsa
+  - chmod 600 $HOME/.ssh/id_rsa
+  # --- Configure Git User ---
+  - git config --global user.email "$GIT_COMMITTER_EMAIL"
+  - git config --global user.name "$GIT_COMMITTER_NAME"
+  # --- Fetch and Checkout the Target Branch ---
+  - git remote update 
+  - git fetch origin master:master 
+  - git checkout master
+  # --- Commit and Push ---
+  - git remote set-url origin git@github.com:Integral-Systems/swarm-pilot.git # <--- ADD THIS LINE
+  - git commit -a -m "update version ${DRONE_TAG}"
+  - git push origin master
   when:
     status:
     - success
