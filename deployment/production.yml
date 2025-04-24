@@ -30,15 +30,23 @@ services:
     networks:
       - default
     deploy:
-      mode: replicated
-      replicas: 1
+      mode: global
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first  
+      resources:
+        limits:
+          memory: 256M
+          cpus: '1'
+        reservations:
+          memory: 128M
+          cpus: "0.5"
+      restart_policy:
+          condition: any
+          delay: 5s
+          max_attempts: 5
+          window: 30s
       placement:
         constraints:
           - node.role == manager
-      resources:
-        limits:
-          cpus: '0.10'
-          memory: 128M
-        reservations:
-          cpus: '0.10'
-          memory: 64M
