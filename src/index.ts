@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { Chunk, Duration, Effect, pipe, Schedule, Array } from "effect";
+import { Chunk, Duration, Effect, pipe, Schedule, Array, Ref } from "effect";
 import { build_runtime } from "./runtime.js";
 import { get_metrics, get_nodes, get_service_tasks, get_services, inspect_node, inspect_service } from "./commands.js";
 import { get_args } from "./args.js";
@@ -7,13 +7,22 @@ import 'dotenv/config'
 import { check_usage_and_scale } from "./actions.js";
 import { notify } from "./notify.js";
 import { Config } from "./config.js";
+import { ServiceInspectState } from "./states.js";
 
 
-const autoscaler= pipe(
+const autoscaler = pipe(
     Effect.gen(function* () {
         const config = yield* Config;
+        const state = yield* ServiceInspectState;
         const schedule = Schedule.spaced(`${config.config.autoscaler_interval} seconds`)
-        yield* Effect.repeat(check_usage_and_scale, schedule)
+        const schedule2 = Schedule.spaced(`2 seconds`)
+        const t = yield* Ref.get(state)
+        yield* Effect.all([
+            Effect.repeat(check_usage_and_scale, schedule),
+            Effect.repeat(Effect.logInfo(t), schedule2),
+        ],{
+            concurrency: 'unbounded',
+        })
     }),
     Effect.catchTags({
         AppError: (error) => {

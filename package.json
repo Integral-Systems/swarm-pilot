@@ -24,9 +24,7 @@
     "url": "https://github.com/Integral-Systems/swarm-pilot/issues"
   },
   "homepage": "https://github.com/Integral-Systems/swarm-pilot#readme",
-  "bin": {
-    "swarm-pilot": "dist/index.js"
-  },
+  "bin": "dist/index.js",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },

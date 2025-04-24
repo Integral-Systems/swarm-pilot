@@ -114,3 +114,4 @@ export const docker_node_schema = Schema.Struct({
 
 // --- Top-Level Schema (docker node inspect returns an array) ---
 export const docker_node_inspect_schema = Schema.Array(docker_node_schema);
+export type DockerNodeInspect = typeof docker_node_inspect_schema.Type;

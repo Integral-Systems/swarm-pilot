@@ -179,3 +179,4 @@ export const docker_serviceSchema = Schema.Struct({
 });
 
 export const docker_serviceInspect_schema = Schema.Array(docker_serviceSchema);
+export type DockerServiceInspect = typeof docker_serviceInspect_schema.Type;
