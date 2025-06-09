@@ -71,7 +71,11 @@ To deploy this configuration, save it to a file named `docker-compose.yml` and r
 ```bash
 docker stack deploy -c docker-compose.yml swarm-manager
 ```
+
 ### Planned Features
     - **Node Rebalancing**: Automatically redistribute services across nodes to ensure even resource utilization and reduce bottlenecks.
     - **Node Scaling/Provisioning/Decommissioning (Hetzner)**: Dynamically add or remove nodes in the cluster based on workload demands, leveraging Hetzner's infrastructure.
+    - 
 
+If you find Lucy-CLI useful, consider supporting the project:
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gradlon)
